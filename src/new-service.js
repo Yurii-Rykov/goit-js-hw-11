@@ -14,7 +14,8 @@ export default class ApiService {
       .then(response => response.json())
       .then(data => {
         this.page += 1;
-        return data.hits;
+        console.log(data);
+        return data;
       });
   }
 
