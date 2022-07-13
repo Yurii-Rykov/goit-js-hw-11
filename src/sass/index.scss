@@ -1,2 +1,10 @@
 @import './common';
 @import './example';
+
+.container {
+  width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}

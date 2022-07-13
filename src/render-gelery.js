@@ -1,4 +1,4 @@
-export default function renderGelery(hits) {
+export function renderGelery(hits) {
   return hits
     .map(hit => {
       return `<div class="photo-card">
@@ -20,4 +20,8 @@ export default function renderGelery(hits) {
             </div>`;
     })
     .join('');
+}
+
+export function renderMessage() {
+  return `<p class="message-bottom">All content on request!!!</p>`;
 }

@@ -1,10 +1,11 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import ApiService from './new-service';
-import RenderGelery from './render-gelery';
+import { renderGelery, renderMessage } from './render-gelery';
 
 const formEl = document.querySelector('#search-form');
 const divEl = document.querySelector('.gallery');
 const buttonEl = document.querySelector('.load-more');
+const divMessage = document.querySelector('.all-content');
 const apiService = new ApiService();
 
 formEl.addEventListener('submit', onSubmit);
@@ -38,12 +39,13 @@ function appendMarkup(data) {
     );
   }
   buttonEl.classList.remove('is-hidden');
-  divEl.insertAdjacentHTML('beforeend', RenderGelery(data.hits));
+  divEl.insertAdjacentHTML('beforeend', renderGelery(data.hits));
   const limit = Math.floor(data.totalHits / 40) + 2;
   console.log(apiService.page);
   if (apiService.page === limit) {
     buttonEl.classList.add('is-hidden');
-    return Notify.failure('MAX!');
+    divMessage.insertAdjacentHTML('beforeend', renderMessage());
+    return Notify.info('All content on request');
   }
 }
 
