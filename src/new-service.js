@@ -4,20 +4,29 @@ export default class ApiService {
     this.page = 1;
   }
 
-  fetchArticles() {
-    // console.log(this);
-
+  async fetchArticles() {
     const key = '?key=28565156-d6a8869547fee06a320be5b89';
     const options = `&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`;
 
-    return fetch(`https://pixabay.com/api/${key}${options}`)
-      .then(response => response.json())
-      .then(data => {
-        this.page += 1;
-        console.log(data);
-        return data;
-      });
+    const response = await fetch(`https://pixabay.com/api/${key}${options}`);
+    const data = await response.json();
+
+    this.page += 1;
+    console.log(data);
+    return data;
   }
+  //   fetchArticles() {
+  //     const key = '?key=28565156-d6a8869547fee06a320be5b89';
+  //     const options = `&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`;
+
+  //     return fetch(`https://pixabay.com/api/${key}${options}`)
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         this.page += 1;
+  //         console.log(data);
+  //         return data;
+  //       });
+  //   }
 
   resetPage() {
     this.page = 1;

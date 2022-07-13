@@ -10,7 +10,7 @@ const apiService = new ApiService();
 formEl.addEventListener('submit', onSubmit);
 buttonEl.addEventListener('click', onLoadMore);
 
-function onSubmit(event) {
+async function onSubmit(event) {
   event.preventDefault();
 
   apiService.query = event.currentTarget.elements.searchQuery.value;
@@ -18,15 +18,17 @@ function onSubmit(event) {
     return Notify.failure('Enter search name!');
   }
   clearMarkup();
-  //   apiService.resetPage();
-  apiService.fetchArticles().then(appendMarkup);
+  apiService.resetPage();
+  onLoadMore();
 }
 
-function onLoadMore() {
-  apiService.fetchArticles().then(appendMarkup);
-  //   if (apiService.page === 14) {
-  //     return alert('no');
-  //   }
+async function onLoadMore() {
+  try {
+    const dataApi = await apiService.fetchArticles();
+    appendMarkup(dataApi);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function appendMarkup(data) {
