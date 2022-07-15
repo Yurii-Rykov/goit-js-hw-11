@@ -19,19 +19,24 @@ export default class LoadingPagination {
   anable() {
     this.refs.button.disabled = false;
     this.refs.spinner.classList.add('is-hidden');
+    return this;
   }
   setText(newText) {
     this.refs.label.textContent = newText;
+    return this;
   }
   disable() {
     this.refs.button.disabled = true;
     this.refs.spinner.classList.remove('is-hidden');
+    return this;
   }
 
   show() {
     this.refs.button.classList.remove('is-hidden');
+    return this;
   }
   hiden() {
     this.refs.button.classList.add('is-hidden');
+    return this;
   }
 }
