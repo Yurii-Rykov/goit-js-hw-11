@@ -2,7 +2,9 @@ export function renderGelery(hits) {
   return hits
     .map(hit => {
       return `<div class="photo-card">
+            <a  class="link" href="${hit.largeImageURL}">
             <img src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" class="img"/>
+            </a>
             <div class="info">
                 <p class="info-item">
                 <b>Likes ${hit.likes} </b>

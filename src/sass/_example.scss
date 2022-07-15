@@ -1,7 +1,10 @@
-.load-more {
+.style-btn {
   margin-top: 20px;
   display: block;
   margin-bottom: 20px;
+  height: 40px;
+  width: 300px;
+  margin: 0 auto;
 }
 .is-hidden {
   visibility: hidden;
@@ -53,15 +56,17 @@
   width: 100px;
   border-color: gray;
 }
-.load-more {
-  height: 40px;
-  width: 300px;
-  margin: 0 auto;
-}
+// .load-more {
+
+//   margin: 0 auto;
+// }
 .message-bottom {
   font-size: 20px;
   color: gray;
 }
 .all-content {
   margin: 0 auto;
+}
+.link {
+  text-decoration: none;
 }

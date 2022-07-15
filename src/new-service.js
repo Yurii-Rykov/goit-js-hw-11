@@ -12,7 +12,6 @@ export default class ApiService {
     const data = await response.json();
 
     this.page += 1;
-    console.log(data);
     return data;
   }
   //   fetchArticles() {
