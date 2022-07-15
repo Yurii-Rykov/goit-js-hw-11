@@ -7,14 +7,17 @@ import LoadingPagination from './loading-pagination';
 
 const formEl = document.querySelector('#search-form');
 const divEl = document.querySelector('.gallery');
-// const buttonEl = document.querySelector('.load-more');
 const divMessage = document.querySelector('.all-content');
-const spiner = document.querySelector('.spinner-border');
+// const spiner = document.querySelector('.spinner-border');
 
 const loadingPagination = new LoadingPagination({
   selector: '[data-action="load-more"]',
   hidden: true,
 });
+const loadingSearch = new LoadingPagination({
+  selector: '[data-action-search="Search"]',
+});
+
 const apiService = new ApiService();
 
 formEl.addEventListener('submit', onSubmit);
@@ -28,7 +31,7 @@ async function onSubmit(event) {
     return Notify.failure('Enter search name!');
   }
 
-  loadingPagination.show();
+  loadingSearch.disable();
   clearMarkup();
   apiService.resetPage();
   onLoadMore();
@@ -36,11 +39,18 @@ async function onSubmit(event) {
 
 async function onLoadMore() {
   loadingPagination.disable();
+  loadingPagination.setText('Loading..');
 
   try {
     const dataApi = await apiService.fetchArticles();
+    if (dataApi.hits.length === 0) {
+      return Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    }
     appendMarkup(dataApi);
-    loadingPagination.anable();
+    loadingSearch.anable();
+
     if (apiService.page === 2) {
       Notify.success(`Hooray! We found ${dataApi.totalHits} images.`);
     }
@@ -50,18 +60,16 @@ async function onLoadMore() {
 }
 
 function appendMarkup(data) {
-  if (data.hits.length === 0) {
-    return Notify.warning(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-  }
-  loadingPagination.refs.button.classList.remove('is-hidden');
+  loadingPagination.show();
+  loadingPagination.anable();
+  loadingPagination.setText('Load more');
+
   divEl.insertAdjacentHTML('beforeend', renderGelery(data.hits));
   lightbox.refresh();
 
   const limit = Math.floor(data.totalHits / 40) + 2;
   if (apiService.page === limit) {
-    loadingPagination.refs.button.classList.add('is-hidden');
+    loadingPagination.hiden();
     divMessage.insertAdjacentHTML('beforeend', renderMessage());
     return Notify.info('All content on request');
   }

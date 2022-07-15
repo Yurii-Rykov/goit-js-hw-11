@@ -18,13 +18,13 @@ export default class LoadingPagination {
   }
   anable() {
     this.refs.button.disabled = false;
-    this.refs.label.textContent = 'Load more..';
     this.refs.spinner.classList.add('is-hidden');
   }
-
+  setText(newText) {
+    this.refs.label.textContent = newText;
+  }
   disable() {
     this.refs.button.disabled = true;
-    this.refs.label.textContent = 'Loading..';
     this.refs.spinner.classList.remove('is-hidden');
   }
 
