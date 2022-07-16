@@ -30,7 +30,6 @@ export default class LoadingPagination {
     this.refs.spinner.classList.remove('is-hidden');
     return this;
   }
-
   show() {
     this.refs.button.classList.remove('is-hidden');
     return this;
